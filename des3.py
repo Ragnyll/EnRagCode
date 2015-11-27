@@ -60,7 +60,7 @@ def export_des3_decryption_keys(d1, d2, d3):
     json.dump(d1, des_d_1)
     des_d_1.close()
     des_d_2 = open('des_d_2.json', 'w')
-    json.dump(d1, des_d_2)
+    json.dump(d2, des_d_2)
     des_d_2.close()
     des_d_3 = open('des_d_3.json', 'w')
     json.dump(d3, des_d_3)
@@ -96,10 +96,10 @@ def encrypt_file(use_keys):
         e2 = create_encryption_key()
         e3 = create_encryption_key()
         export_des3_encryption_keys(e1, e2, e3)
-        export_des3_decryption_keys(create_decryption_key(e1), create_decryption_key(e2), create_decryption_key(e3))
+        export_des3_decryption_keys(create_decryption_key(e1), create_decryption_key(e2),
+            create_decryption_key(e3))
 
     data = des3_encrypt(e1, e2, e3, data)
-    # go to the beggining of a file
     f.seek(0)
     f.write(data)
     f.truncate()
@@ -109,14 +109,14 @@ def encrypt_file(use_keys):
     return e1, e2, e3
 
 def decrypt_file():
-    file_path = input("Please give a path to the file to decrypt:")
+    file_path = input("Please give a path to the file to decrypt: ")
     f = open(file_path, 'r+')
     if not f.writable():
         print('Error: File is not writable! Terminating Program.')
         exit()
     data = f.read()
     # this will be removed when the read from decrypion file function is done
-    d1, d2, d3 = import_encryption_keys()
+    d1, d2, d3 = import_decryption_keys()
     data = des3_decrypt(d1, d2, d3, data)
     f.seek(0)
     f.write(data)
