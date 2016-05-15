@@ -30,41 +30,17 @@ def decrypt(decrypt_key, encrypted_string):
         decrypted_string += decrypt_key[c]
     return decrypted_string
 
-def des3_encrypt(e1, e2, e3, estring):
-    estring = encrypt(e1, estring)
-    estring = encrypt(e2, estring)
-    estring = encrypt(e3, estring)
-    return estring
+# give it the encrypted dict
+def export_encryption_key(e1):
+    e_key = open('encryption_key.json', 'w')
+    json.dump(e1, e_key)
+    e_key.close()
 
-def des3_decrypt(d1, d2, d3, estring):
-    estring = decrypt(d3, estring)
-    estring = decrypt(d2, estring)
-    estring = decrypt(d1, estring)
-    return estring
-
-# give it the encrypted dictionaries
-def export_des3_encryption_keys(e1, e2, e3):
-    des_e_1 = open('des_e_1.json', 'w')
-    json.dump(e1, des_e_1)
-    des_e_1.close()
-    des_e_2 = open('des_e_2.json', 'w')
-    json.dump(e1, des_e_2)
-    des_e_2.close()
-    des_e_3 = open('des_e_3.json', 'w')
-    json.dump(e3, des_e_3)
-    des_e_3.close()
-
-# give it the decrypt dictionaries
-def export_des3_decryption_keys(d1, d2, d3):
-    des_d_1 = open('des_d_1.json', 'w')
-    json.dump(d1, des_d_1)
+# give it the decrypt dict
+def export_decryption_key(d1):
+    d_key = open('decryption_key.json', 'w')
+    json.dump(d1, d_key)
     des_d_1.close()
-    des_d_2 = open('des_d_2.json', 'w')
-    json.dump(d2, des_d_2)
-    des_d_2.close()
-    des_d_3 = open('des_d_3.json', 'w')
-    json.dump(d3, des_d_3)
-    des_d_3.close()
 
 # add error handling if there is no encryption key files
 # add .close for files
